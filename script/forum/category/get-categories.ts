@@ -1,7 +1,7 @@
 import * as cheerio from 'cheerio';
 import axios from 'axios';
 import { GetCategoryHrefs } from './categoryType';
-import { baseUrl } from '../../const';
+import { baseUrl } from '../../../const';
 
 // GetLinkCategory: to get all of the categories information
 export async function GetLinkCategory(url: string): Promise<GetCategoryHrefs[]> {

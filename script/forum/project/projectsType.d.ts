@@ -1,4 +1,3 @@
-
 export interface ProjectsData {
     id:                    number;
     category:              string;
@@ -14,6 +13,7 @@ export interface ProjectsData {
     like_count:            number;
     has_summary:           boolean;
     category_id: number;
+    link: string;
 }
 
 export interface ListTopicResponse {
