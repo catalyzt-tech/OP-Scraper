@@ -1,13 +1,14 @@
 import axios from "axios";
 import { Buffer } from 'buffer';
-import { DocPath } from "./docs.type";
 import * as fs from 'fs'
 import * as path from 'path'
 import markdownToTxt from 'markdown-to-txt';
 import { chunkArray, convertSpecialChar, headerGithub } from "../../utils/utils";
 import { BASE_DOC } from "../../const";
+import { FilePathAndUrl } from "../../lib/list-all-files-github-type";
 
-export async function SaveFileMdxGithub(docs: DocPath[]) {
+
+export async function SaveFileMdxGithub(docs: FilePathAndUrl[]) {
 
     const folderName = path.join(__dirname, '..', '..', 'data', 'docs-data')
 
