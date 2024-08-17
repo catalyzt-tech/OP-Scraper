@@ -3,14 +3,13 @@ import { Buffer } from 'buffer';
 import * as fs from 'fs'
 import * as path from 'path'
 import markdownToTxt from 'markdown-to-txt';
+import { FilePathAndUrl } from "../list-all-files-github-type";
 import { chunkArray, convertSpecialChar, headerGithub } from "../../utils/utils";
-import { BASE_DOC } from "../../const";
-import { FilePathAndUrl } from "../../lib/list-all-files-github-type";
 
 
-export async function SaveFileMdxGithub(docs: FilePathAndUrl[]) {
+export async function SaveFileMdxGithub(docs: FilePathAndUrl[], requiredPath: string[] = [], baseRefUrl:string) {
 
-    const folderName = path.join(__dirname, '..', '..', 'data', 'docs-data')
+    const folderName = path.join(__dirname, ...requiredPath)
 
     // Ensure the folder exists
     if (!fs.existsSync(folderName)) {
@@ -45,7 +44,7 @@ export async function SaveFileMdxGithub(docs: FilePathAndUrl[]) {
                 content = markdownToTxt(decodedContent)  
     
                 // doc.path will be something like pages/... so it using next router so the file name will be the route
-                const urlToSave = BASE_DOC + "/" + doc.path.replace("pages/", "").replace(".mdx", "")
+                const urlToSave = baseRefUrl + "/" + doc.path.replace("pages/", "").replace(".mdx", "")
                 const fileName = convertSpecialChar(urlToSave) + ".txt"
                 const filePath = path.join(folderName, fileName)
                 
