@@ -1,7 +1,7 @@
 import * as cheerio from 'cheerio';
 import axios from 'axios';
 import { GetCategoryHrefs } from './categoryType';
-import { baseUrl } from '../../../const';
+import { BASE_URL } from '../../../const';
 
 // GetLinkCategory: to get all of the categories information
 export async function GetLinkCategory(url: string): Promise<GetCategoryHrefs[]> {
@@ -17,7 +17,7 @@ export async function GetLinkCategory(url: string): Promise<GetCategoryHrefs[]> 
       $('tr').each((index, element) => {
           
           // to get the correct url that we want to send
-          const href = baseUrl + $(element).find('.category a').attr('href') + "/l/latest.json?filter=default";
+          const href = BASE_URL + $(element).find('.category a').attr('href') + "/l/latest.json?filter=default";
   
           // get category name
           const name = $(element).find('.category span[itemprop="name"]').text().trim();

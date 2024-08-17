@@ -9,13 +9,12 @@ import { HTTPSTATUSOK } from '../../../const'
 import { htmlToText } from 'html-to-text'
 import * as fs from 'fs'
 import * as path from 'path'
+import { convertSpecialChar } from '../../../utils/utils'
 
-function convertSpecialChar(url: string): string {
-  return url.replace(/\//g, '_').replace(/:/g, '+')
-}
 
+// SaveProjectData: Save all the project data into /data/forum-data using urls from GetAllProjectsUrl
 export async function SaveProjectData(urls: string[]) {
-  const folderName = path.join(__dirname, '..', '..', '..', 'data', 'forumData')
+  const folderName = path.join(__dirname, '..', '..', '..', 'data', 'forum-data')
 
   // Ensure the folder exists
   if (!fs.existsSync(folderName)) {
@@ -25,17 +24,16 @@ export async function SaveProjectData(urls: string[]) {
   for (const url of urls) {
     try {
       const response = await axios.get<GetProjectDetailExample>(url)
-      if (
-        response.status !== HTTPSTATUSOK &&
-        !response.data.post_stream.posts
-      ) {
+      if (response.status !== HTTPSTATUSOK && !response.data.post_stream.posts) {
         console.error(`Error fetching data ${url}`)
         continue
       }
+
       let posts = response.data.post_stream.posts
       const projectData = response.data
       if (posts.length !== 0) {
         let postOwner: Post = posts[0]
+
         // store the owner of the post data
         let projectOwner: ProjectJSON = {
           title: projectData.title,
@@ -83,13 +81,15 @@ export async function SaveProjectData(urls: string[]) {
               moderator: post.moderator,
               staff: post.staff,
               like_count:
+                // action.id === 2 -> like
                 post.actions_summary.find((action) => action.id === 2)?.count ||
                 0,
             }
             projectOwner.answer.push(ans)
           }
         }
-        // url = https+__gov.optimism.io_t_2238.json?forceLoad=true
+
+        // remove unnecessary string
         let newUrl = url.replace('.json?forceLoad=true', '') + '.txt'
         const fileName = convertSpecialChar(newUrl)
         const filePath = path.join(folderName, fileName)
