@@ -18,13 +18,25 @@ export async function StartForum() {
     
     console.log("Forum is starting . . .")
 
-    const urls = await GetAllProjectsUrl(SITEMAP_FORUM)
-    const chunkSize = 100
-    const chunkedUrls = chunkArray(urls, chunkSize)
+    try {
+        const urls = await GetAllProjectsUrl(SITEMAP_FORUM)
+        if (!urls || urls.length === 0){
+            throw new Error("No urls data found");
+        }
 
-    for (const url of chunkedUrls) {
-        await SaveProjectData(url)
-        setTimeout(() => {}, 1000)
+        const chunkSize = 100
+        const chunkedUrls = chunkArray(urls, chunkSize)
+
+        for (const url of chunkedUrls) {
+            await SaveProjectData(url)
+            setTimeout(() => {}, 1000)
+        }
+
+    } catch (error) {
+        console.error("An error occurred during the forum process:", error);
+    } finally {
+        console.log("Forum process finished.");
     }
 
 }
+
