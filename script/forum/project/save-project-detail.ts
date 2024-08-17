@@ -45,7 +45,7 @@ export async function SaveProjectData(urls: string[]) {
           created_at: projectData.created_at,
         }
 
-        console.log(`Saving project data for ${projectData.title}`)
+        // console.log(`Saving project data for ${projectData.title}`)
 
         // slice out the owner post data
         posts = posts.slice(1, posts.length)
