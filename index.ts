@@ -15,7 +15,7 @@ async function main() {
     MODULE_OPTIONS[name](); 
     
   } else {
-    console.error("Module not in a option\nBelow are the option avaiable");
+    console.error("Module not in options\nBelow are the options available");
     
     Object.keys(MODULE_OPTIONS).forEach(key => {
       console.log("- ", key)

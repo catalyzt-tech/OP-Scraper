@@ -48,18 +48,13 @@ export async function SaveFileMdxGithub(docs: DocPath[]) {
                 const fileName = convertSpecialChar(urlToSave) + ".txt"
                 const filePath = path.join(folderName, fileName)
                 
-                fs.writeFileSync(
-                    filePath,
-                    content,
-                    'utf-8'
-                )
+                await fs.promises.writeFile(filePath, content, 'utf-8');
 
             }
             setTimeout(() => {}, 500)
     
         } catch (error) {
             console.error('Fetch error:', error);
-            continue
         }
     }
 }
