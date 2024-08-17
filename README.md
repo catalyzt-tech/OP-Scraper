@@ -3,6 +3,7 @@
 ### Module options
 - forum
 - docs
+- dev-docs
 
 ### Command to run
 ```
