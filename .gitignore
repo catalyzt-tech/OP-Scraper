@@ -1,3 +1,5 @@
 .env
 node_modules
-data/forumData
+data/*
+dist
+.DS_Store

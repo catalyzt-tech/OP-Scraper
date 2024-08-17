@@ -3,7 +3,7 @@ import { GetCategoryHrefs } from "../category/categoryType";
 import { ListTopicResponse, ProjectsData } from "./projectsType";
 import * as fs from 'fs';
 import * as path from 'path';
-import { HTTPSTATUSOK, baseUrl } from "../../../const";
+import { HTTPSTATUSOK, BASE_URL } from "../../../const";
 
 // ListAllProjectInCategory: to get all of the projects that exist in categories
 // categories: can recieve from GetLinkCategory
@@ -47,9 +47,9 @@ export async function ListAllProjectInCategory(categories: GetCategoryHrefs[], s
                         last_posted_at: t.last_posted_at,
                         category_id: t.category_id,
                         category: cate.display,
-                        link: baseUrl + `/t/${t.id}.json?track_visit=false&forceLoad=true`,
+                        // * if want json format need to be in this format
+                        link: BASE_URL + `/t/${t.id}.json?track_visit=false&forceLoad=true`,
                     };
-                    // console.log(project)
                     aggr.push(project);
                 });
 
