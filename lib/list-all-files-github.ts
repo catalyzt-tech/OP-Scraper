@@ -1,14 +1,15 @@
 
 import axios from "axios"
-import { ALL_DOCS_PATH } from "../../const"
-import { DocPath, ListDocsResponse } from "./docs.type"
-import { headerGithub } from "../../utils/utils"
+import { headerGithub } from "../utils/utils"
+import { FilePathAndUrl, ListGithubFilesResponse } from "./list-all-files-github-type"
 
-
-export async function ListAllFileInDocs(): Promise<DocPath[]> {
+// ListAllFileInDocs: will return a all of url (navigate to get encrypt content) and path (where is the file in the repo ex./pages/...)
+// includeString is optional we will use it with path like path.includes(includeString)
+// by default it will only include .mdx file
+export async function ListAllFilesInGithub(githubRepoLink:string, includeString:string = ".mdx"): Promise<FilePathAndUrl[]> {
 
     try {
-        let allUrlPath:DocPath[] = []
+        let allUrlPath:FilePathAndUrl[] = []
 
         const headers = headerGithub()
         if (headers === null){
@@ -16,7 +17,7 @@ export async function ListAllFileInDocs(): Promise<DocPath[]> {
             return []
         }
         
-        const response = await axios.get<ListDocsResponse>(ALL_DOCS_PATH, {
+        const response = await axios.get<ListGithubFilesResponse>(githubRepoLink, {
             headers: headers,
         })
         
@@ -26,8 +27,8 @@ export async function ListAllFileInDocs(): Promise<DocPath[]> {
         }
 
         for (const res of response.data.tree){
-            if(res.path.includes(".mdx")){
-                let doc: DocPath = {
+            if(res.path.includes(includeString)){
+                let doc: FilePathAndUrl = {
                     path: res.path,
                     url: res.url,
                 }

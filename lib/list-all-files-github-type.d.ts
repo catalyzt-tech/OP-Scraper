@@ -1,9 +1,9 @@
-export interface DocPath {
+export interface FilePathAndUrl {
     path: string;
     url: string;
 }
 
-export interface ListDocsResponse {
+export interface ListGithubFilesResponse {
     sha:  string;
     url:  string;
     tree: Tree[];

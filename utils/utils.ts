@@ -26,7 +26,11 @@ export function convertSpecialChar(url: string): string {
 // headerGithub: getting the header option for axios
 export function headerGithub() : (RawAxiosRequestHeaders) | AxiosHeaders| null  {
 
-    if (!process.env.GITHUB_KEY) {
+    if (!process.env.GITHUB_KEY || typeof(process.env.GITHUB_KEY) !== "string") {
+        return null
+    }
+
+    if (process.env.GITHUB_KEY.length < 3){
         return null
     }
 

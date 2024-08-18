@@ -2,7 +2,8 @@
 
 ### Module options
 - forum
-- docs
+- gov-doc
+- dev-doc
 
 ### Command to run
 ```
