@@ -1,6 +1,6 @@
-import { StartDocDev } from "./script/docs-dev/docs-dev";
-import { StartDoc } from "./script/docs/docs";
+import { StartDevDoc } from "./script/dev-doc/dev-doc";
 import { StartForum } from "./script/forum/forum";
+import { StartGovDoc } from "./script/gov-doc/gov-doc";
 
 export const HTTPSTATUSOK = 200
 
@@ -45,6 +45,6 @@ type OptionFunction = () => void;
 // for select which module going to run
 export const MODULE_OPTIONS: Record<string, OptionFunction> = {
     "forum": StartForum,
-    "docs": StartDoc, 
-    "docs-dev": StartDocDev, 
+    "gov-doc": StartGovDoc, 
+    "dev-doc": StartDevDoc, 
 }
